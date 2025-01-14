@@ -1,0 +1,111 @@
+﻿@page "/"
+@using static System.Net.WebRequestMethods
+@inject HttpClient Http
+
+<PageTitle>Upload Users</PageTitle>
+<h3>Upload your CSV file with users to the TenStar database</h3>
+
+<button id="btn_check_connection" @onclick="CheckConnection">Server Health</button>
+<button id="btn_save" @onclick="SaveUserTable">Save to database</button>
+<InputFile id="uploadCsv" MaxAllowedSize="10485760" OnChange="UploadUserTable" />
+
+@code {
+
+    private async Task CheckConnection()
+    {
+        var getRequest = await Http.GetAsync("5158");
+        if(getRequest.IsSuccessStatusCode)
+        {
+            Console.WriteLine("Server healthy");
+        }
+        else
+        {
+            Console.WriteLine("Could not reach server");
+        }
+    }
+
+    private void SaveUserTable()
+    {
+        
+    }
+
+    private async Task UploadUserTable(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            var csvFile = e.File;
+
+            using var stream = csvFile.OpenReadStream();
+            using var reader = new StreamReader(stream);
+            var csvContent = await reader.ReadToEndAsync();
+
+            var newUsers = ParseCsvContent(csvContent);
+
+            users = newUsers;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error parsing CSV file: {ex.Message}");
+        }
+    }
+
+    private User[] ParseCsvContent(string csvContent)
+    {
+        var lines = csvContent.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+        var parsedUsers = lines.Skip(1).Select(line =>
+        {
+            var columns = line.Split(',', StringSplitOptions.TrimEntries);
+
+            if (columns.Length < 4) return null;
+
+            return new User
+            {
+                Fullname = columns[0],
+                Username = columns[1],
+                Email = columns[2],
+                Password = columns[3]
+            };
+        }).Where(user => user != null).ToArray();
+
+        return parsedUsers!;
+    }
+
+    private User[] users = Array.Empty<User>();
+
+    public record User
+    {
+        public string? Fullname { get; set; }
+
+        public string? Username { get; set; }
+
+        public string? Email { get; set; }
+
+        public string? Password { get; set; }
+    }
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Password</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var u in users)
+        {
+            <tr>
+                <td>@u.Fullname</td>
+                <td>@u.Username</td>
+                <td>@u.Email</td>
+                <td>@u.Password</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

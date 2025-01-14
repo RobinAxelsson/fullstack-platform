@@ -1,0 +1,6 @@
+@TenStar.UserWebApi_HostAddress = http://localhost:5157
+
+GET {{TenStar.UserWebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

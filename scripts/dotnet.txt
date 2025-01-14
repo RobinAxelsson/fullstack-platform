@@ -1,0 +1,7 @@
+dotnet new blazorwasm -o .\src\TenStar.UserWeb
+dotnet-init-lib TenStar.UserSys
+dotnet new webapi -o .\src\TenStar.UserWebApi
+dotnet sln add .\src\Tenstar.UserWeb
+dotnet sln add .\src\TenStar.UserSys
+dotnet sln add .\src\TenStar.UserWebApi
+dotnet new list
