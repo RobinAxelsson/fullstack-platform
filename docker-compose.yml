@@ -1,0 +1,39 @@
+services:
+  # sqlserver:
+  #   image: mcr.microsoft.com/mssql/server:2022-latest
+  #   container_name: sqlserver
+  #   ports:
+  #     - "1433:1433"
+  #   environment:
+  #     ACCEPT_EULA: "Y"
+  #     SA_PASSWORD: "YourStrong@Passw0rd"
+  #   volumes:
+  #     - sqlserver_data:/var/opt/mssql
+  #   networks:
+  #     - app_network
+
+  backend:
+    build:
+      context: ./src/TenStar.UserWebApi
+      dockerfile: Dockerfile
+    container_name: TenStar.UserWebApi
+    ports:
+      - "8088:8088"
+    networks:
+      - app_network
+
+  frontend:
+    build:
+      context: ./src/TenStar.UserWeb 
+      dockerfile: Dockerfile
+    container_name: TenStar.UserWeb
+    ports:
+      - "80:80"
+    networks:
+      - app_network
+
+volumes:
+  sqlserver_data:
+
+networks:
+  app_network:

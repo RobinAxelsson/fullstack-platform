@@ -10,22 +10,34 @@ internal class Program
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
 
-        var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
+        builder.Services.AddCors(options =>
+        {
+           options.AddPolicy("AllowBlazorClient", policy =>
+           {
+                policy.WithOrigins("http://localhost:5147", "https://localhost:5148", "http://localhost:88")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+           });
+        });
+
+        var app = builder.Build();
+        
+        app.UseCors("AllowBlazorClient");
+
         if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi();
         }
 
-        app.UseHttpsRedirection();
-
+        //app.UseHttpsRedirection();
+        
         var summaries = new[]
         {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-        app.MapGet("/weatherforecast", () =>
+        app.MapGet("/api/weatherforecast", () =>
         {
             var forecast = Enumerable.Range(1, 5).Select(index =>
                 new WeatherForecast

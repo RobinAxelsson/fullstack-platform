@@ -10,23 +10,25 @@
 <InputFile id="uploadCsv" MaxAllowedSize="10485760" OnChange="UploadUserTable" />
 
 @code {
-
+#if CONTAINER
+    private const string backendurl = "http://localhost/api";
+    private const bool IsContainer = true;
+#else
+    @* private const string backendurl = "https://localhost:5158"; *@
+    private const string backendurl = "/api";
+    private const bool IsContainer = false;
+#endif
     private async Task CheckConnection()
     {
-        var getRequest = await Http.GetAsync("5158");
-        if(getRequest.IsSuccessStatusCode)
-        {
-            Console.WriteLine("Server healthy");
-        }
-        else
-        {
-            Console.WriteLine("Could not reach server");
-        }
+        Console.WriteLine("isContainer:" + IsContainer);
+        var url = $"{backendurl}/weatherforecast";
+        Console.WriteLine("req: "+ url);
+        var weatherforecast = await Http.GetAsync(url); //want this from the build environment
+        Console.WriteLine("Server http status: " + (int)weatherforecast.StatusCode);
     }
 
     private void SaveUserTable()
     {
-        
     }
 
     private async Task UploadUserTable(InputFileChangeEventArgs e)
