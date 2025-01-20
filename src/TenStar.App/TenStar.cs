@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using TenStar.App.DataAccess;
 using TenStar.App.Exceptions;
 using TenStar.App.Messages;
@@ -11,15 +12,10 @@ public sealed class TenStar
 
     internal TenStar()
     {
-        var serviceProvider = new ServiceCollection()
-            .AddDbContext<TenStarDbContext>();
-
-        var services = serviceProvider.BuildServiceProvider();
-
-        _dbContext = services.GetRequiredService<TenStarDbContext>();
+        _dbContext = new TenStarDbContext();
     }
 
-    public async void Handle<T>(T message) where T : TenStarMessage
+    public async void Handle<T>(T message) where T : TenStarAppMessage
     {
         switch (message)
         {

@@ -27,5 +27,13 @@ namespace TenStar.App.DataAccess
                 entity.Property(u => u.Username).IsRequired().HasMaxLength(100);
             });
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=localhost;Database=TenStar.Db;User Id=sa;Password=YourStrong@Passw0rd;");
+            }
+        }
     }
 }
