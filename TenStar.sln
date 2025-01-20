@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{721F43E0-1653-4771-9045-B8BF3A0AFACE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenStar.UserSys", "src\TenStar.UserSys\TenStar.UserSys.csproj", "{55282DFB-B3E9-4ADC-9424-A6332FD6CF59}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenStar.UserWebApi", "src\TenStar.UserWebApi\TenStar.UserWebApi.csproj", "{AE0D6AF0-74DB-4596-B848-CAD7E657622D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6CA2EACE-4D05-4760-A6AF-A148CF6167A5}"
@@ -15,19 +13,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenStar.UserSysTests", "tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenStar.UserWeb", "src\Tenstar.UserWeb\TenStar.UserWeb.csproj", "{8F6EF4AC-4B52-4468-8150-A7BC9706E594}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenStar.App", "src\TenStar.App\TenStar.App.csproj", "{CFD18ADD-C204-4734-8D05-2A34C0DCCAE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{55282DFB-B3E9-4ADC-9424-A6332FD6CF59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55282DFB-B3E9-4ADC-9424-A6332FD6CF59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55282DFB-B3E9-4ADC-9424-A6332FD6CF59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55282DFB-B3E9-4ADC-9424-A6332FD6CF59}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AE0D6AF0-74DB-4596-B848-CAD7E657622D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AE0D6AF0-74DB-4596-B848-CAD7E657622D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE0D6AF0-74DB-4596-B848-CAD7E657622D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -40,11 +33,18 @@ Global
 		{8F6EF4AC-4B52-4468-8150-A7BC9706E594}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F6EF4AC-4B52-4468-8150-A7BC9706E594}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F6EF4AC-4B52-4468-8150-A7BC9706E594}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFD18ADD-C204-4734-8D05-2A34C0DCCAE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFD18ADD-C204-4734-8D05-2A34C0DCCAE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFD18ADD-C204-4734-8D05-2A34C0DCCAE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFD18ADD-C204-4734-8D05-2A34C0DCCAE0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{55282DFB-B3E9-4ADC-9424-A6332FD6CF59} = {721F43E0-1653-4771-9045-B8BF3A0AFACE}
 		{AE0D6AF0-74DB-4596-B848-CAD7E657622D} = {721F43E0-1653-4771-9045-B8BF3A0AFACE}
 		{94B8D829-6FE0-4FDE-BBDA-28A0B3E5C480} = {6CA2EACE-4D05-4760-A6AF-A148CF6167A5}
 		{8F6EF4AC-4B52-4468-8150-A7BC9706E594} = {721F43E0-1653-4771-9045-B8BF3A0AFACE}
+		{CFD18ADD-C204-4734-8D05-2A34C0DCCAE0} = {721F43E0-1653-4771-9045-B8BF3A0AFACE}
 	EndGlobalSection
 EndGlobal
