@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenStar.UserWebApi", "src\T
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6CA2EACE-4D05-4760-A6AF-A148CF6167A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenStar.UserSysTests", "test\TenStar.UserSysTests\TenStar.UserSysTests.csproj", "{94B8D829-6FE0-4FDE-BBDA-28A0B3E5C480}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenStar.AppTests", "test\TenStar.AppTests\TenStar.AppTests.csproj", "{94B8D829-6FE0-4FDE-BBDA-28A0B3E5C480}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenStar.UserWeb", "src\Tenstar.UserWeb\TenStar.UserWeb.csproj", "{8F6EF4AC-4B52-4468-8150-A7BC9706E594}"
 EndProject

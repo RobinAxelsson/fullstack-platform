@@ -1,5 +1,9 @@
 
-namespace TenStar.UserWeb;
+using TenStar.App;
+using TenStar.App.Messages;
+using static TenStar.App.Messages.RequestUserTableInsertMessage;
+
+namespace TenStar.UserWebApi;
 internal class Program
 {
     private static void Main(string[] args)
@@ -10,28 +14,36 @@ internal class Program
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
 
-
         builder.Services.AddCors(options =>
         {
-           options.AddPolicy("AllowBlazorClient", policy =>
+           options.AddPolicy("AllowUserWeb", policy =>
            {
                 policy.WithOrigins("http://localhost:5147", "https://localhost:5148", "http://localhost:88", "http://localhost", "http://TenStar.UserWeb")
                    .AllowAnyHeader()
                    .AllowAnyMethod();
            });
         });
-
+        
         var app = builder.Build();
         
-        app.UseCors("AllowBlazorClient");
-
         if (app.Environment.IsDevelopment())
         {
+            app.UseCors("AllowUserWeb");
             app.MapOpenApi();
         }
+        else
+        {
+            app.UseHttpsRedirection();
+        }
 
-        //app.UseHttpsRedirection();
-        
+        var tenStarAppFacade = new TenStarAppFacade();
+
+        app.MapPost("/api/users", (List<UserDto> users) =>
+        {
+            tenStarAppFacade.Handle(new RequestUserTableInsertMessage(users));
+        });
+
+
         var summaries = new[]
         { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
 

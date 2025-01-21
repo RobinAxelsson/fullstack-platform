@@ -1,11 +1,18 @@
-Set-Alias run-web .\scripts\run-web.bat
-Set-Alias clean-web .\scripts\clean-web.bat
-Set-Alias watch-web .\scripts\watch-web.bat
-Set-Alias run-webapi .\scripts\run-webapi.bat
-Set-Alias watch-webapi .\scripts\watch-webapi.bat
-function webapi(){ docker exec TenStar.UserWeb curl -v http://TenStar.UserWebApi:8088/api/weatherforecast }
-function apiweb(){ docker exec TenStar.UserWebApi curl -v http://TenStar.UserWeb }
-function apihost(){ docker exec TenStar.UserWebApi curl -v http://host.docker.internal:8088/api/weatherforecast }
-function webhost(){ docker exec TenStar.UserWeb curl -v http://host.docker.internal }
-function rsweb(){ docker exec -it TenStar.UserWeb sh }
-function rsapi(){ docker exec -it TenStar.UserWeb sh }
+Set-Alias run-stack .\scripts\run-stack.ps1
+Set-Alias run-web .\scripts\run-web.ps1
+Set-Alias watch-web .\scripts\watch-web.ps1
+Set-Alias run-webapi .\scripts\run-webapi.ps1
+Set-Alias watch-webapi .\scripts\watch-webapi.ps1
+
+### experimental ###
+
+# remote shell into the containers
+function remote-web(){ docker exec -it TenStar.UserWeb sh }
+function remote-api(){ docker exec -it TenStar.UserWeb sh }
+function remote-db(){ docker exec -it TenStar.Db sh }
+
+# configure nginx web server in TenStar.UserWeb container
+function update-nginx(){
+    docker cp ./src/TenStar.UserWeb/nginx.conf TenStar.UserWeb:/etc/nginx/nginx.conf
+    docker exec TenStar.UserWeb nginx -s reload
+}

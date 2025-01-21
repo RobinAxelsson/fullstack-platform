@@ -20,7 +20,6 @@ namespace TenStar.App.DataAccess
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(u => u.DbId);
-                entity.HasIndex(u => u.TsId).IsUnique();
                 entity.Property(u => u.Name).IsRequired().HasMaxLength(100);
                 entity.Property(u => u.Email).IsRequired().HasMaxLength(255);
                 entity.Property(u => u.Password).IsRequired().HasMaxLength(255);
@@ -32,7 +31,7 @@ namespace TenStar.App.DataAccess
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=localhost;Database=TenStar.Db;User Id=sa;Password=YourStrong@Passw0rd;");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=TenStar.Db;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;");
             }
         }
     }
