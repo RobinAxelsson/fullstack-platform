@@ -21,8 +21,17 @@ cd ..\..
 
 # run the full app
 run-stack
+
+# more commands
+sql-up
+sql-down
 ```
 
 ## Pure docker
 
-Experimental, use the root docker-compose.yml
+```shell
+# Backend baseurl bug in User.Web
+# Experimental, use the root docker-compose.yml
+# Bug 
+docker-compose up
+```

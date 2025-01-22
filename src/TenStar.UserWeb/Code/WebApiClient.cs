@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 
 namespace TenStar.UserWeb.Code;
@@ -13,14 +14,11 @@ public class WebApiClient
 
     public static async Task PostUserTable(HttpClient httpClient, User[] users)
     {
-        if (users.Length < 1) return;
-
-        var jsonContent = JsonSerializer.Serialize(users);
-        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+        if (users.Length == 0) return;
 
         try
         {
-            var response = await httpClient.PostAsync($"{API_URL}/users", content);
+            var response = await httpClient.PostAsJsonAsync($"{API_URL}/users", users);
             response.EnsureSuccessStatusCode();
             var responseBody = await response.Content.ReadAsStringAsync();
             Console.WriteLine($"Response: {responseBody}");

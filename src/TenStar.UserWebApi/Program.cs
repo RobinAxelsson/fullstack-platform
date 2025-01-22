@@ -1,7 +1,5 @@
 
 using TenStar.App;
-using TenStar.App.Messages;
-using static TenStar.App.Messages.RequestUserTableInsertMessage;
 
 namespace TenStar.UserWebApi;
 internal class Program
@@ -23,7 +21,12 @@ internal class Program
                    .AllowAnyMethod();
            });
         });
-        
+
+        builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
+
+        builder.Services.AddSingleton<TenStarAppFacade>();
+
         var app = builder.Build();
         
         if (app.Environment.IsDevelopment())
@@ -37,12 +40,6 @@ internal class Program
         }
 
         var tenStarAppFacade = new TenStarAppFacade();
-
-        app.MapPost("/api/users", (List<UserDto> users) =>
-        {
-            tenStarAppFacade.Handle(new RequestUserTableInsertMessage(users));
-        });
-
 
         var summaries = new[]
         { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
@@ -60,6 +57,8 @@ internal class Program
             return forecast;
         })
         .WithName("GetWeatherForecast");
+
+        app.MapControllers();
 
         app.Run();
     }

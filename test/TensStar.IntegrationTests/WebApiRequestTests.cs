@@ -24,14 +24,14 @@ public class WebApiRequestTests
         {
             new UserDto
             {
-                Name = "John Doe",
+                FullName = "John Doe",
                 Email = "john.doe@example.com",
                 Password = "paSsword123!",
                 Username = "johndoe"
             },
             new UserDto
             {
-                Name = "Jane Smith",
+                FullName = "Jane Smith",
                 Email = "jane.smith@example.com",
                 Password = "securePass456!",
                 Username = "janesmith"
@@ -52,7 +52,7 @@ public class WebApiRequestTests
 
     public class UserDto
     {
-        public required string Name { get; set; }
+        public required string FullName { get; set; }
         public required string Email { get; set; }
         public required string Password { get; set; }
         public required string Username { get; set; }

@@ -8,20 +8,10 @@
 <PageTitle>Upload Users</PageTitle>
 <h3>Upload your CSV file with users to the TenStar database</h3>
 
-<label for="inputField">Url:</label>
-<InputText id="inputField" @bind-Value="fetchUrl" class="form-control" />
-<button id="btn_fetch" @onclick="Fetch">Fetch</button>
 <button id="btn_save" @onclick="SaveUserTable">Save to database</button>
 <InputFile id="uploadCsv" MaxAllowedSize="10485760" OnChange="UploadUserTable" />
 
 @code {
-	private string? fetchUrl;
-	private async Task Fetch()
-	{
-		if(fetchUrl == null) throw new ArgumentNullException();
-		var weatherforecast = await Http.GetAsync(fetchUrl);
-	}
-
 	private async Task SaveUserTable()
 	{
 		await WebApiClient.PostUserTable(Http, users);
