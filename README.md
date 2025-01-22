@@ -27,7 +27,7 @@ sql-up
 sql-down
 ```
 
-## Pure docker
+## Experimental - Full docker in db, web, webapi
 
 ```shell
 # Backend baseurl bug in User.Web
