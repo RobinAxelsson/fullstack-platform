@@ -1,5 +1,11 @@
 # TenStar - UserApplication
 
+## Requirements
+
+- Dotnet SDK 9
+- Docker (or SQL-Server)
+- Powershell (or an IDE)
+
 ## Setup database
 
 ```powershell
