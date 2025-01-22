@@ -76,7 +76,7 @@ namespace TensStar.IntegrationTests
 
         private static void WaitForConnection()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(15000);
         }
 
         private static string GetSolutionDir()

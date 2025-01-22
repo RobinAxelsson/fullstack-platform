@@ -3,10 +3,12 @@
 
 using Microsoft.AspNetCore.Mvc;
 using TenStar.App.Exceptions;
-using TenStar.App.Messages;
 using TenStar.App;
 using static TenStar.App.Messages.RequestUserTableInsertMessage;
 using System.Text.Json;
+using TenStar.App.MessageDtos;
+using TenStar.App.Messages;
+using TenStar.App.MessagesResponse;
 
 namespace TenStar.UserWebApi.Controllers
 {
@@ -36,6 +38,29 @@ namespace TenStar.UserWebApi.Controllers
                 {
                     Error = "Invalid User",
                     Details =  JsonSerializer.Serialize(ex.Errors)
+                });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUsers()
+        {
+            try
+            {
+                var response = await _tenStarAppFacade.Handle<RequestUsersMessage, RequestUsersResponse>(new RequestUsersMessage());
+                if(response == null)
+                {
+                    throw new ArgumentNullException(nameof(response));
+                }
+
+                return Ok(response.UserDtos);
+            }
+            catch (UserInvalidException ex)
+            {
+                return BadRequest(new
+                {
+                    Error = "Invalid User",
+                    Details = JsonSerializer.Serialize(ex.Errors)
                 });
             }
         }
