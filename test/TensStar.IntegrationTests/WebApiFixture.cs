@@ -5,7 +5,8 @@ namespace TensStar.IntegrationTests
 {
     public class WebApiFixture : IDisposable
     {
-        internal const string BASE_URL = "http://localhost:5555";
+        private const int PORT = 5555;
+        internal static readonly string BASE_URL = "http://localhost:" + PORT;
         private Process? _webApiProcess = null;
         private static readonly string OUTPUT_DIR = Path.Combine(".", "UserWebApi");
         private static readonly string DLL_PATH = Path.Combine(OUTPUT_DIR, "TenStar.UserWebApi.dll");
@@ -22,7 +23,7 @@ namespace TensStar.IntegrationTests
             _webApiProcess?.Kill();
         }
 
-        internal static void Build()
+        private static void Build()
         {
             string solutionPath = GetSolutionDir();
             string projectPath = Path.Combine(solutionPath, "src", "TenStar.UserWebApi", "TenStar.UserWebApi.csproj");
@@ -31,6 +32,8 @@ namespace TensStar.IntegrationTests
             {
                 throw new FileNotFoundException("Project file not found.");
             }
+
+            Environment.SetEnvironmentVariable("USE_INMEMORY_DB", "TRUE");
 
             var processStartInfo = new ProcessStartInfo
             {
@@ -54,7 +57,7 @@ namespace TensStar.IntegrationTests
             }
         }
 
-        internal static Process Run()
+        private static Process Run()
         {
             var processStartInfo = new ProcessStartInfo
             {
@@ -71,7 +74,7 @@ namespace TensStar.IntegrationTests
             return process;
         }
 
-        internal static void WaitForConnection()
+        private static void WaitForConnection()
         {
             Thread.Sleep(5000);
         }

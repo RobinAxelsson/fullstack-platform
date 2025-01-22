@@ -1,3 +1,4 @@
+using TenStar.App.DataAccess;
 using TenStar.App.Entities;
 using TenStar.App.Messages;
 
@@ -5,7 +6,7 @@ namespace TenStar.App
 {
     internal static class UserManager
     {
-        public static async Task<int> HandleRequestUserTableInsertMessage(RequestUserTableInsertMessage message, Action<List<User>> addUsers, Func<Task<int>> saveChangesAsync)
+        public static async Task<int> HandleRequestUserTableInsertMessage(RequestUserTableInsertMessage message, TenStarDbContext db)
         {
             var users = message.UserDtos.Select(userDto => new User(
                 userDto.Name,
@@ -13,8 +14,8 @@ namespace TenStar.App
                 userDto.Password,
                 userDto.Username
             )).ToList();
-            addUsers(users);
-            return await saveChangesAsync();
+            db.Users.AddRange(users);
+            return await db.SaveChangesAsync();
         }
     }
 }

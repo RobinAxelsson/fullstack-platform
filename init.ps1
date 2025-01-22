@@ -3,6 +3,8 @@ Set-Alias run-web .\scripts\run-web.ps1
 Set-Alias watch-web .\scripts\watch-web.ps1
 Set-Alias run-webapi .\scripts\run-webapi.ps1
 Set-Alias watch-webapi .\scripts\watch-webapi.ps1
+Set-Alias sql-up .\scripts\sql-up.ps1
+Set-Alias sql-down .\scripts\sql-down.ps1
 
 ### experimental ###
 

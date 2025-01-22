@@ -29,6 +29,12 @@ namespace TenStar.App.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (Environment.GetEnvironmentVariable("USE_INMEMORY_DB")?.ToUpper() == "TRUE")
+            {
+                optionsBuilder.UseInMemoryDatabase("TenStarDb");
+                return;
+            }
+
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer("Server=localhost;Database=TenStar.Db;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;");

@@ -1,6 +1,6 @@
 ﻿namespace TenStar.App.Messages
 {
-    public sealed class RequestUserTableInsertMessage : TenStarMessage
+    public sealed class RequestUserTableInsertMessage : TenStarAppMessage
     {
         internal IReadOnlyCollection<UserDto> UserDtos { get; }
 
@@ -15,7 +15,6 @@
             public required string Email { get; set; }
             public required string Password { get; set; }
             public required string Username { get; set; }
-
         }
     }
 }

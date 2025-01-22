@@ -9,4 +9,4 @@ WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
 COPY --from=publish /publish/wwwroot .
 COPY --from=publish /src/nginx.conf /etc/nginx/nginx.conf
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

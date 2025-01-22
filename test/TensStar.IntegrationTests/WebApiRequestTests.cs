@@ -6,6 +6,7 @@ namespace TensStar.IntegrationTests;
 public class WebApiRequestTests
 {
     private readonly ITestOutputHelper _output;
+    private readonly string _baseUrl = WebApiFixture.BASE_URL;
 
     public WebApiRequestTests(ITestOutputHelper output)
     {
@@ -17,7 +18,7 @@ public class WebApiRequestTests
     public async Task EndpointPostUsers_HappyPath_OK()
     {
         // Arrange
-        using var httpClient = new HttpClient { BaseAddress = new Uri(WebApiFixture.BASE_URL) };
+        using var httpClient = new HttpClient { BaseAddress = new Uri(_baseUrl) };
 
         var users = new List<UserDto>
         {
@@ -25,14 +26,14 @@ public class WebApiRequestTests
             {
                 Name = "John Doe",
                 Email = "john.doe@example.com",
-                Password = "password123",
+                Password = "paSsword123!",
                 Username = "johndoe"
             },
             new UserDto
             {
                 Name = "Jane Smith",
                 Email = "jane.smith@example.com",
-                Password = "securePass456",
+                Password = "securePass456!",
                 Username = "janesmith"
             }
         };
@@ -46,7 +47,6 @@ public class WebApiRequestTests
         _output.WriteLine("Response Content: {0}", responseContent);
 
         // Assert
-        response.EnsureSuccessStatusCode();
         Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
     }
 
