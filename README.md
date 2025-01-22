@@ -6,7 +6,9 @@
 - Docker (or SQL-Server)
 - Powershell (or an IDE)
 
-## Setup database
+## Setup Docker SQL database
+
+If you prefer setting up sql server directly on your host machine and skipping docker it should work as well (not tested). The steps below should be followed anyway except for the docker-compose part.
 
 ```powershell
 
