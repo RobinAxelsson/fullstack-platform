@@ -1,15 +1,13 @@
 using Microsoft.EntityFrameworkCore;
-using TenStar.App.DataAccess;
-using TenStar.App.Entities;
-using TenStar.App.MessageDtos;
-using TenStar.App.Messages;
-using TenStar.App.MessagesResponse;
+using TenStar.UserContext.Api.Message;
+using TenStar.UserContext.App.DataLayer;
+using TenStar.UserContext.App.Entities;
 
-namespace TenStar.App
+namespace TenStar.UserContext.App
 {
     internal static class UserManager
     {
-        public static async Task<int> HandleRequestUserTableInsertMessage(RequestUserTableInsertMessage message, TenStarDbContext db)
+        public static async Task<int> HandleRequestUserTableInsertMessage(RequestCreateUsers message, UserContextDbContext db)
         {
             var users = message.UserDtos.Select(userDto => new User(
                 userDto.FullName,
@@ -21,23 +19,24 @@ namespace TenStar.App
             return await db.SaveChangesAsync();
         }
 
-        internal static async Task<RequestUsersResponse> HandleRequestUsersMessage(RequestUsersMessage requestUsersMessage, TenStarDbContext dbContext)
+        internal static async Task<ResponseRequestCreateUsers> HandleRequestUsersMessage(RequestUsers requestUsersMessage, UserContextDbContext dbContext)
         {
-            var users = await dbContext.Users.ToListAsync();
+            var users = await dbContext.Users.AsNoTracking().ToListAsync();
 
-            if(users == null)
+            if (users == null)
             {
                 throw new ArgumentNullException(nameof(users));
             }
 
-            var userDtos = users.Select(user => new UserDto {
+            var userDtos = users.Select(user => new DtoUser
+            {
                 Email = user.Email,
                 FullName = user.Name,
                 Password = user.Password,
                 Username = user.Username
             }).ToList();
 
-            return new RequestUsersResponse(userDtos);
+            return new ResponseRequestCreateUsers(userDtos);
         }
     }
 }

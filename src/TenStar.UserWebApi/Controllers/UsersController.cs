@@ -1,14 +1,9 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-
-using Microsoft.AspNetCore.Mvc;
-using TenStar.App.Exceptions;
-using TenStar.App;
-using static TenStar.App.Messages.RequestUserTableInsertMessage;
+﻿using Microsoft.AspNetCore.Mvc;
+using static TenStar.UserContext.Api.Message.RequestCreateUsers;
 using System.Text.Json;
-using TenStar.App.MessageDtos;
-using TenStar.App.Messages;
-using TenStar.App.MessagesResponse;
+using TenStar.UserContext.Api.Message;
+using TenStar.UserContext;
+using TenStar.UserContext.App.Exceptions;
 
 namespace TenStar.UserWebApi.Controllers
 {
@@ -16,19 +11,19 @@ namespace TenStar.UserWebApi.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly TenStarAppFacade _tenStarAppFacade;
+        private readonly UserContextFacade _tenStarAppFacade;
 
-        public UsersController(TenStarAppFacade tenStarAppFacade)
+        public UsersController(UserContextFacade tenStarAppFacade)
         {
             _tenStarAppFacade = tenStarAppFacade;
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostUsers([FromBody] List<UserDto> users)
+        public async Task<IActionResult> PostUsers([FromBody] List<DtoUser> users)
         {
             try
             {
-                await _tenStarAppFacade.Handle(new RequestUserTableInsertMessage(users));
+                await _tenStarAppFacade.Handle(new RequestCreateUsers(users));
 
                 return Ok(new { Message = "Users successfully added." });
             }
@@ -47,7 +42,7 @@ namespace TenStar.UserWebApi.Controllers
         {
             try
             {
-                var response = await _tenStarAppFacade.Handle<RequestUsersMessage, RequestUsersResponse>(new RequestUsersMessage());
+                var response = await _tenStarAppFacade.Handle<RequestUsers, ResponseRequestCreateUsers>(new RequestUsers());
                 if(response == null)
                 {
                     throw new ArgumentNullException(nameof(response));

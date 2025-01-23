@@ -1,5 +1,4 @@
-
-using TenStar.App;
+using TenStar.UserContext;
 
 namespace TenStar.UserWebApi;
 internal class Program
@@ -25,7 +24,7 @@ internal class Program
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
 
-        builder.Services.AddSingleton<TenStarAppFacade>();
+        builder.Services.AddSingleton<UserContextFacade>();
 
         var app = builder.Build();
         
@@ -39,7 +38,7 @@ internal class Program
             app.UseHttpsRedirection();
         }
 
-        var tenStarAppFacade = new TenStarAppFacade();
+        var tenStarAppFacade = new UserContextFacade();
 
         var summaries = new[]
         { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };

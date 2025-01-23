@@ -1,13 +1,13 @@
-﻿using TenStar.App.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using TenStar.UserContext.App.Entities;
 
-namespace TenStar.App.DataAccess
+namespace TenStar.UserContext.App.DataLayer
 {
-    internal class TenStarDbContext : DbContext
+    internal class UserContextDbContext : DbContext
     {
-        public TenStarDbContext() { }
+        public UserContextDbContext() { }
 
-        public TenStarDbContext(DbContextOptions<TenStarDbContext> options) : base(options)
+        public UserContextDbContext(DbContextOptions<UserContextDbContext> options) : base(options)
         {
         }
 

@@ -1,6 +1,6 @@
-﻿namespace TenStar.App.MessageDtos
+﻿namespace TenStar.UserContext.Api.Message
 {
-    public record UserDto
+    public record DtoUser
     {
         //skip constructor when all is strings to avoid confusion
         public required string FullName { get; set; }
