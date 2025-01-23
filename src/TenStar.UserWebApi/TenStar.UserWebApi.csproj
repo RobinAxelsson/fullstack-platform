@@ -10,6 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TenStar.App\TenStar.App.csproj" />
+    <ProjectReference Include="..\TenStar.UserContext\TenStar.UserContext.csproj" />
   </ItemGroup>
 </Project>

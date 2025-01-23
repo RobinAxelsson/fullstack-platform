@@ -1,6 +1,8 @@
-namespace TenStar.App.Exceptions;
+using TenStar.UserContext.App.Exceptions;
 
-public class NotImplementedMessageException : TenStarAppException
+namespace TenStar.UserContext.Api.Exceptions;
+
+public class NotImplementedMessageException : TenStarUserProjectException
 {
     public NotImplementedMessageException() { }
     public NotImplementedMessageException(string message) : base(message) { }

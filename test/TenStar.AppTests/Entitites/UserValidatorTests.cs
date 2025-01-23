@@ -1,4 +1,6 @@
-﻿using TenStar.App.Validators;
+﻿
+using TenStar.UserContext.App.Exceptions;
+using TenStar.UserContext.App.Validators;
 
 namespace TenStar.App.Tests
 {
@@ -22,16 +24,15 @@ namespace TenStar.App.Tests
         }
 
         [Theory]
-        [InlineData(null, "email@example.com", "StrongPass1!", "username", UserValidatorError.FullName)]
-        [InlineData("", "email@example.com", "StrongPass1!", "username", UserValidatorError.FullName)]
-        [InlineData(" ", "email@example.com", "StrongPass1!", "username", UserValidatorError.FullName)]
-        [InlineData("A very long name that exceeds the character limit of 100 characters for validation purposesssssssssssssssssssssssssssssssssssss.", "email@example.com", "StrongPass1!", "username", UserValidatorError.FullName)]
-        [InlineData("Valid Name", "", "StrongPass1!", "username", UserValidatorError.Email)]
-        [InlineData("Valid Name", "invalid-email", "StrongPass1!", "username", UserValidatorError.Email)]
-        [InlineData("Valid Name", "email@example.com", "weakpass", "username", UserValidatorError.PaswordErr)]
-        [InlineData("Valid Name", "email@example.com", "StrongPass1!", "", UserValidatorError.Username)]
-        [InlineData("Valid Name", "email@example.com", "StrongPass1!", "A very long username that exceeds the character limit of 100 characters for validation purposesssssssssssssssssssss.", UserValidatorError.Username)]
-        public void ValidateUserInput_InvalidInput_ShouldReturnExpectedErrors(string name, string email, string password, string username, UserValidatorError expectedError)
+        [InlineData("", "email@example.com", "StrongPass1!", "username", UserValidationError.FullName)]
+        [InlineData(" ", "email@example.com", "StrongPass1!", "username", UserValidationError.FullName)]
+        [InlineData("A very long name that exceeds the character limit of 100 characters for validation purposesssssssssssssssssssssssssssssssssssss.", "email@example.com", "StrongPass1!", "username", UserValidationError.FullName)]
+        [InlineData("Valid Name", "", "StrongPass1!", "username", UserValidationError.Email)]
+        [InlineData("Valid Name", "invalid-email", "StrongPass1!", "username", UserValidationError.Email)]
+        [InlineData("Valid Name", "email@example.com", "weakpass", "username", UserValidationError.Pasword)]
+        [InlineData("Valid Name", "email@example.com", "StrongPass1!", "", UserValidationError.Username)]
+        [InlineData("Valid Name", "email@example.com", "StrongPass1!", "A very long username that exceeds the character limit of 100 characters for validation purposesssssssssssssssssssss.", UserValidationError.Username)]
+        public void ValidateUserInput_InvalidInput_ShouldReturnExpectedErrors(string name, string email, string password, string username, UserValidationError expectedError)
         {
             // Act
             var errors = UserValidator.ValidateUserInput(name, email, password, username);
@@ -55,10 +56,10 @@ namespace TenStar.App.Tests
 
             // Assert
             Assert.NotNull(errors);
-            Assert.Contains(UserValidatorError.FullName, errors);
-            Assert.Contains(UserValidatorError.Email, errors);
-            Assert.Contains(UserValidatorError.PaswordErr, errors);
-            Assert.Contains(UserValidatorError.Username, errors);
+            Assert.Contains(UserValidationError.FullName, errors);
+            Assert.Contains(UserValidationError.Email, errors);
+            Assert.Contains(UserValidationError.Pasword, errors);
+            Assert.Contains(UserValidationError.Username, errors);
         }
     }
 }

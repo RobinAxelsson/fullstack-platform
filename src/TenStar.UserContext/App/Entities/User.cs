@@ -1,7 +1,8 @@
-using TenStar.App.Exceptions;
-using TenStar.App.Validators;
+#pragma warning disable CS8618
+using TenStar.UserContext.App.Exceptions;
+using TenStar.UserContext.App.Validators;
 
-namespace TenStar.App.Entities
+namespace TenStar.UserContext.App.Entities
 {
     public sealed class User
     {
@@ -18,7 +19,7 @@ namespace TenStar.App.Entities
 
             var errors = UserValidator.ValidateUserInput(name, email, password, username);
 
-            if(errors.Count  > 0)
+            if (errors.Count > 0)
                 throw new UserInvalidException(errors);
 
             Name = name;
