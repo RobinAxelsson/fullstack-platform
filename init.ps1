@@ -5,6 +5,7 @@ Set-Alias run-webapi .\scripts\run-webapi.ps1
 Set-Alias watch-webapi .\scripts\watch-webapi.ps1
 Set-Alias sql-up .\scripts\sql-up.ps1
 Set-Alias sql-down .\scripts\sql-down.ps1
+Set-Alias local-secrets .\scripts\local-secrets.ps1
 
 ### experimental ###
 
