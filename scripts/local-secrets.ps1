@@ -1,31 +1,37 @@
+#!/usr/bin/env pwsh
+
 param (
     [string]$action,
     [string]$key
 )
 
 $isHelp = $action -eq "help" -or $action -eq "h" -or $action -eq "-h" -or $action -eq "--help"
+$actions = @("edit", "add", "get", "list")
 
-if(-not $action -or $isHelp) {
-    Write-Host "Local Secrets is not for production use. It is intended for local development only."
+if($actions -notcontains $action -or $isHelp) {
+    Write-Host "local-secrets: manage local secrets and storing them in <USERPROFILE>."
     Write-Host "Usage: local-secrets [action] [key]"
     Write-Host "Actions:"
     Write-Host "  edit: Edit local secrets file"
     Write-Host "  add: Add new key-value pair to local secrets file"
-    Write-Host "  env-activate: Activate local secrets as environment variables"
-    Write-Host "  exists: Check if an environment variable exists"
+    Write-Host "  get: Get the value of a key from the local secrets file"
     Write-Host "  list: Print the contents of the local secrets file"
-    
-    if($isHelp) {
-        exit 0
-    }
 
     exit 1
 }
 
-$localSecrets = "$env:USERPROFILE\tenstar\local-secrets.env"
+$repo_name = $Env:_REPO_NAME_
 
-if(-not (Test-Path "$env:USERPROFILE\tenstar")) {
-    New-Item -ItemType Directory -Path "$env:USERPROFILE\tenstar"
+if(-not $repo_name) {
+    Write-Host "The repository name was not found while trying to create the local-secrets folder."
+    exit 1
+}
+
+$localSecretsDir = "$env:USERPROFILE\${repo_name}"
+$localSecrets = "${localSecretsDir}\local-secrets.env"
+
+if(-not (Test-Path "$localSecretsDir")) {
+    New-Item -ItemType Directory -Path "$localSecretsDir"
 }
 
 if(-not (Test-Path "$localSecrets")) {
@@ -42,37 +48,23 @@ if($action -eq "add") {
     Add-Content $localSecrets "$key=$value"
 }
 
-if($action -eq "env-activate" -and -not $key) {
-    $envVars = Get-Content $localSecrets
-    Test-EnvFileContent $envVars
-
-    foreach($envVar in $envVars) {
-        $keyValue = $envVar.Split("=")
-        $key = $keyValue[0]
-        $value = $keyValue[1]
-        [System.Environment]::SetEnvironmentVariable($key, $value, [System.EnvironmentVariableTarget]::User)
-    }
-}
-
-if($action -eq "exists") {
-    if(-not $key) {
-        Write-Host "Please provide a key to check."
-        exit 1
-    }
-
+if($action -eq "get") {
     $envVars = Get-Content $localSecrets
     foreach($envVar in $envVars) {
         $keyValue = $envVar.Split("=")
         if($keyValue[0] -eq $key) {
-            Write-Host "Environment variable '$key' exists."
+            Write-Host $keyValue[1]
             exit 0
         }
     }
-
-    Write-Host "Environment variable '$key' does not exist."
+    Write-Host "Environment variable '$key' does not exist in local-secrets.env."
     exit 1
 }
 
 if($action -eq "list") {
-    Get-Content $localSecrets | ForEach-Object { Write-Host $_ }
+    if(-not (Get-Content $localSecrets)) {
+        Write-Host "The file $localSecrets is empty."
+        exit 0
+    }
+    Get-Content $localSecrets | Write-Host
 }
