@@ -1,1 +1,0 @@
-dotnet run --project .\src\TenStar.UserWebApi\TenStar.UserWebApi.csproj

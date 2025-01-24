@@ -43,3 +43,21 @@ sql-down
 # Bug 
 docker-compose up
 ```
+
+## Http testing
+
+Use postman and newman for pipeline testing
+
+## Local Secrets
+
+- Use "local-secrets" script
+- USERPROFILE/tenstar/local-secrets.env
+
+## Secret Secrets 1Password
+
+- Use "secret-secrets" script requires 1Password desktop, 1password account and 1Password CLI https://developer.1password.com/docs/cli/get-started/#install
+- Alternatives in pipelines GitHub secrets
+
+```shell
+winget install 1password-cli
+```
