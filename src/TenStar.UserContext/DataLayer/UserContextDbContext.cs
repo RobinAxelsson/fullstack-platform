@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TenStar.UserContext.App.Entities;
+using TenStar.UserContext.Entities;
 
-namespace TenStar.UserContext.App.DataLayer
+namespace TenStar.UserContext.DataLayer
 {
     internal class UserContextDbContext : DbContext
     {

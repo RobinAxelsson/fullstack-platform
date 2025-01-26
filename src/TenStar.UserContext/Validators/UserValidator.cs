@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
-using TenStar.UserContext.App.Exceptions;
+using TenStar.UserContext.Enum;
 
-namespace TenStar.UserContext.App.Validators
+namespace TenStar.UserContext.Validators
 {
     internal static class UserValidator
     {

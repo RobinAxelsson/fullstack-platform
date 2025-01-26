@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using static TenStar.UserContext.Api.Message.RequestCreateUsers;
 using System.Text.Json;
-using TenStar.UserContext.Api.Message;
 using TenStar.UserContext;
-using TenStar.UserContext.App.Exceptions;
+using TenStar.UserContext.Exceptions;
+using TenStar.UserContext.ApiMessages;
 
 namespace TenStar.UserWebApi.Controllers
 {
@@ -23,8 +22,8 @@ namespace TenStar.UserWebApi.Controllers
         {
             try
             {
-                await _tenStarAppFacade.Handle(new RequestCreateUsers(users));
-
+                await _tenStarAppFacade.Handle(new CommandCreateUsers(users));
+                //TODO: Add a response message
                 return Ok(new { Message = "Users successfully added." });
             }
             catch (UserInvalidException ex)
@@ -42,13 +41,9 @@ namespace TenStar.UserWebApi.Controllers
         {
             try
             {
-                var response = await _tenStarAppFacade.Handle<RequestUsers, ResponseRequestCreateUsers>(new RequestUsers());
-                if(response == null)
-                {
-                    throw new ArgumentNullException(nameof(response));
-                }
-
-                return Ok(response.UserDtos);
+                var query = new QueryUsers();
+                await _tenStarAppFacade.Handle(query);
+                return Ok(query.GetResult());
             }
             catch (UserInvalidException ex)
             {

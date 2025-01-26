@@ -1,4 +1,4 @@
-﻿namespace TenStar.UserContext.App.Events
+﻿namespace TenStar.UserContext.Events
 {
     internal class OnUsersCreated
     {

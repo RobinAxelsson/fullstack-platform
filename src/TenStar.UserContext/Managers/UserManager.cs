@@ -1,13 +1,13 @@
 using Microsoft.EntityFrameworkCore;
-using TenStar.UserContext.Api.Message;
-using TenStar.UserContext.App.DataLayer;
-using TenStar.UserContext.App.Entities;
+using TenStar.UserContext.ApiMessages;
+using TenStar.UserContext.DataLayer;
+using TenStar.UserContext.Entities;
 
-namespace TenStar.UserContext.App
+namespace TenStar.UserContext.Managers
 {
     internal static class UserManager
     {
-        public static async Task<int> HandleRequestUserTableInsertMessage(RequestCreateUsers message, UserContextDbContext db)
+        public static async Task<int> HandleRequestUserTableInsertMessage(CommandCreateUsers message, UserContextDbContext db)
         {
             var users = message.UserDtos.Select(userDto => new User(
                 userDto.FullName,
@@ -19,7 +19,7 @@ namespace TenStar.UserContext.App
             return await db.SaveChangesAsync();
         }
 
-        internal static async Task<ResponseRequestCreateUsers> HandleRequestUsersMessage(RequestUsers requestUsersMessage, UserContextDbContext dbContext)
+        internal static async Task HandleRequestUsersMessage(QueryUsers requestUsersMessage, UserContextDbContext dbContext)
         {
             var users = await dbContext.Users.AsNoTracking().ToListAsync();
 
@@ -35,8 +35,6 @@ namespace TenStar.UserContext.App
                 Password = user.Password,
                 Username = user.Username
             }).ToList();
-
-            return new ResponseRequestCreateUsers(userDtos);
         }
     }
 }

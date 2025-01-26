@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using TenStar.UserWeb.Code;
 
-namespace TenStar.UserWeb.Tests
+namespace TenStar.UserWebTests.Code
 {
     public class CsvParserTests
     {

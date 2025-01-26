@@ -1,7 +1,9 @@
-namespace TenStar.UserContext.App.Exceptions;
+using TenStar.UserContext.Enum;
+
+namespace TenStar.UserContext.Exceptions;
 
 [Serializable]
-public class UserInvalidException : TenStarUserProjectException
+public class UserInvalidException : TenStarUserContextException
 {
     public IReadOnlyCollection<UserValidationError> Errors = Array.Empty<UserValidationError>();
     public UserInvalidException() { }
@@ -11,12 +13,4 @@ public class UserInvalidException : TenStarUserProjectException
     }
     public UserInvalidException(string message) : base(message) { }
     public UserInvalidException(string message, Exception inner) : base(message, inner) { }
-}
-
-public enum UserValidationError
-{
-    FullName,
-    Username,
-    Email,
-    Pasword
 }

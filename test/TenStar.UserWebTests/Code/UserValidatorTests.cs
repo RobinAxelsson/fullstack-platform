@@ -130,7 +130,7 @@ namespace TenStar.UserWebTests.Code
         public void ValidateUser_ValidUser_ReturnsTrue()
         {
             // Arrange
-            var user = new User
+            var user = new TenStar.UserWeb.Code.User
             {
                 FullName = "John Doe",
                 Username = "johndoe123",
@@ -149,7 +149,7 @@ namespace TenStar.UserWebTests.Code
         public void ValidateUser_InvalidUser_ReturnsFalse()
         {
             // Arrange
-            var user = new User
+            var user = new TenStar.UserWeb.Code.User
             {
                 FullName = "", // Invalid
                 Username = "johndoe123",
@@ -168,7 +168,7 @@ namespace TenStar.UserWebTests.Code
         public void ValidateUser_NullUser_ReturnsFalse()
         {
             // Arrange
-            User user = null;
+            TenStar.UserWeb.Code.User user = null!;
 
             // Act
             bool result = UserValidator.ValidateUser(user);

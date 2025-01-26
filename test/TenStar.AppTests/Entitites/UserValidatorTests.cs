@@ -1,8 +1,7 @@
-﻿
-using TenStar.UserContext.App.Exceptions;
-using TenStar.UserContext.App.Validators;
+﻿using TenStar.UserContext.Enum;
+using TenStar.UserContext.Validators;
 
-namespace TenStar.App.Tests
+namespace TenStar.UserContextTests.Entitites
 {
     public class UserValidatorTests
     {

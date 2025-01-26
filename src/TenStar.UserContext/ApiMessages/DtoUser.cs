@@ -1,4 +1,4 @@
-﻿namespace TenStar.UserContext.Api.Message
+﻿namespace TenStar.UserContext.ApiMessages
 {
     public record DtoUser
     {

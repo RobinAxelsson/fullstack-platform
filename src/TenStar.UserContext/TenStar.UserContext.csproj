@@ -21,8 +21,4 @@
       <_Parameter1>TenStar.UserContextTests</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Api\Message\Enum\" />
-  </ItemGroup>
 </Project>

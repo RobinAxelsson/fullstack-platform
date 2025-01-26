@@ -1,8 +1,8 @@
 #pragma warning disable CS8618
-using TenStar.UserContext.App.Exceptions;
-using TenStar.UserContext.App.Validators;
+using TenStar.UserContext.Exceptions;
+using TenStar.UserContext.Validators;
 
-namespace TenStar.UserContext.App.Entities
+namespace TenStar.UserContext.Entities
 {
     public sealed class User
     {
