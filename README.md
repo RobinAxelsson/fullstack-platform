@@ -1,5 +1,7 @@
 # TenStar - UserApplication
 
+Fullstack platform that started out as a code interview test project.
+
 ## Requirements
 
 - Dotnet SDK 9
