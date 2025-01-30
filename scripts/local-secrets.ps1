@@ -24,6 +24,7 @@ $repo_name = $Env:_REPO_NAME_
 
 if(-not $repo_name) {
     Write-Host "The repository name was not found while trying to create the local-secrets folder."
+    Write-Host "Please make sure the _REPO_NAME_ environment variable is set and the script environment is loaded with . .\init.ps1."
     exit 1
 }
 

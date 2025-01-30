@@ -12,6 +12,7 @@ if($arg0 -eq "list"){
 $dockerContainer = $arg0
 Test $dockerContainer {
     Write-Host "Usage: docker-remote <docker-container>"
+    docker ps
     exit 1
 }
 
