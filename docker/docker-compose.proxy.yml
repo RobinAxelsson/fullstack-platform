@@ -1,0 +1,12 @@
+services:
+  rev_proxy:
+    image: nginx:alpine
+    container_name: reverse_proxy
+    ports:
+      - "8888:8888"
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    external: true
