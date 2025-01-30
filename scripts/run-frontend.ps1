@@ -1,3 +1,3 @@
 #!/usr/bin/env pwsh
 
-dotnet run --project $env:_WEB_PATH_
+Start-Process pwsh -ArgumentList '-NoExit', '-c', 'dotnet run --project $env:_WEB_PATH_' 
